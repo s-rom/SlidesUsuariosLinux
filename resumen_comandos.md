@@ -1,17 +1,15 @@
 # Comandos de gestión de usuarios
-<!-- TOC tocDepth:2..3 chapterDepth:2..6 -->
 
-    - [useradd](#useradd)
-    - [passwd](#passwd)
-    - [userdel](#userdel)
-    - [usermod](#usermod)
-    - [groupadd](#groupadd)
-    - [groupdel](#groupdel)
-    - [chgrp](#chgrp)
-    - [chmod](#chmod)
-    - [chown](#chown)
+[Crear un usuario](#useradd) <br>
+[Establecer/Cambiar contraseña](#passwd) <br>
+[Borrar un usuario](#userdel) <br>
+[Modificar un usuario](#usermod) <br>
+[Crear un grupo](#groupadd) <br>
+[Borrar un grupo](#groupdel) <br>
+[Cambiar el grupo de un fichero/directorio](#chgrp) <br>
+[Cambiar los permisos](#chmod) <br>
+[Cambiar el propietario de un fichero/directorio](#chown) <br>
 
-<!-- /TOC -->
 
 ### useradd
 Agrega un nuevo usuario al sistema.
