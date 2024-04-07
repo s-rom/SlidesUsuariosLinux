@@ -1,5 +1,6 @@
 # Comandos de gestión de usuarios
 
+## Comandos típicos
 [Crear un usuario](#useradd) <br>
 [Establecer/Cambiar contraseña](#passwd) <br>
 [Borrar un usuario](#userdel) <br>
@@ -10,6 +11,7 @@
 [Cambiar los permisos](#chmod) <br>
 [Cambiar el propietario de un fichero/directorio](#chown) <br>
 
+---
 
 ### useradd
 Agrega un nuevo usuario al sistema.
