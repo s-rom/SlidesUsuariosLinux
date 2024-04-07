@@ -2,7 +2,7 @@
 marp: true
 # @auto-scaling: true
 theme: default
-#class: invert
+class: invert
 ---
 
 # Linux: Usuarios y grupos
