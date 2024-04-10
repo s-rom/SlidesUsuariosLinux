@@ -152,6 +152,13 @@ Cambia el propietario y/o grupo de un archivo o directorio.
 chown [opciones] nuevo_propietario:nuevo_grupo archivo_o_directorio
 ```
 
+**Ejemplo típico:**
+```bash
+chown nuevo_propietario archivo_o_directorio # Cambia el propietario del archivo o directorio
+
+chown -R nuevo_propietario directorio # Cambia el propietario del directorio y todos sus subdirectorios  
+```
+
 
 **Opciones útiles:**
 - `-R`: Aplica los cambios de propietario de manera recursiva en los subdirectorios.
