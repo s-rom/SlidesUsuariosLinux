@@ -467,3 +467,68 @@ El resultado final sería este:
 sergi@server~$ grep 'sudo' /etc/group
 sudo:x:27:sergi,juan
 ```
+
+---
+
+# Bits speciales
+
+* Se trata de permisos especiales para casos más concretos
+
+    - **SUID** (special user id) 
+    - **SGID** (special group id)
+    - **Sticky bit**
+
+---
+
+# SUID
+
+* Bit especial de *propietario*
+* Identificado por la letra **s**
+
+Un fichero ejecutable con el bit **s** activado se ejecuta con los permisos del propietario del fichero
+
+
+--- 
+
+# GUID
+
+Es exactamente lo mismo que el bit SUID pero en este caso hace referencia al grupo de un fichero en lugar del propietario
+
+---
+
+# SUID: Ejemplo
+
+TODO: Insertar comando **solucion**
+
+--- 
+
+# GUID en directorios
+
+Si un directorio tiene establecido el bit GUID, los ficheros y directorios creados heredan el mismo grupo que el directorio. 
+
+
+---
+
+# GUID en directorios: Ejemplo
+
+
+--- 
+
+# SUID en directorios
+
+En algunos sistemas Linux, el bit SUID en directorios funciona de manera similar al GUID en directorios.
+
+* 
+
+--- 
+
+# Sticky bit 
+
+* Identificado por la letra **t**
+
+
+
+
+
+
+
