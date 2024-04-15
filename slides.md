@@ -2,7 +2,7 @@
 marp: true
 # @auto-scaling: true
 theme: default
-class: invert
+#class: invert
 ---
 
 # Linux: Usuarios y grupos
@@ -498,36 +498,178 @@ Es exactamente lo mismo que el bit SUID pero en este caso hace referencia al gru
 
 # SUID: Ejemplo
 
-TODO: Insertar comando **solucion**
+El comando `solucion` es un fichero ejecutable (programa) que compara la solución de un usuario a un ejercicio con la solución correcta.
 
---- 
+* La solución correcta debe estar almacenada en el servidor. En concreto, la solución está en el directorio /.secret
 
-# GUID en directorios
+```shell
+sergi@server~$ ls -l /.secret
+total 4
+-rw-r--r-- 1 root root 2468 abr 15 19:23 ExamenISO_grep_sed.txt
+```
 
-Si un directorio tiene establecido el bit GUID, los ficheros y directorios creados heredan el mismo grupo que el directorio. 
+---
+
+```shell
+sergi@server~$ ls -l /.secret
+total 4
+-rw-r--r-- 1 root root 2468 abr 15 19:23 ExamenISO_grep_sed.txt
+```
+
+Este fichero contiene la solución al examen y como podemos ver por los permisos, todos los alumnos podrían simplemente leer el fichero. 
+
+Para ello, podriamos pensar que basta con quitar el permiso de lectura para evitar que los alumnos lean el examen
+
+```shell
+sergi@server~$ chmod o-r /.secret/ExamenISO_grep_sed.txt
+```
+---
+
+Pero ahora hemos creado otro problema. Al ejecutar `solucion` nos salta este error:
+
+```python
+PermissionError: [Errno 13] Permission denied: '/.secret/ExamenISO_grep_sed.txt'
+```
+
+
+1. Estamos ejecutando el comando `solucion` con los permisos de nuestro usuario
+2. El comando `solucion` intenta leer la solución del examen
+3. Como no tenemos permisos de lectura en ese fichero, el comando tampoco lo tiene
 
 
 ---
 
-# GUID en directorios: Ejemplo
+# Solución: Añadir el bit SUID
+
+```shell
+sergi@server~$ chmod u+s /usr/bin/solucion
+sergi@server~$ ls -l /usr/bin/solucion
+sergi@server~$ ls -l /.secret
+total 4
+-rw-r----- 1 root root 2468 abr 15 19:23 ExamenISO_grep_sed.txt
+sergi@server/usr/bin$ ls -l solucion
+-rwsr-xr-x 1 root root 897048 abr 15 19:23 solucion
+```
+
+**Observación:** **x** del apartado del propietario se ha cambiado por una **s**
+
+* Ahora, cualquier usuario que ejecute el comando `solucion`, lo ejecutará con los permisos del propietario (que en este caso es `root`)
+
+* El resto de usuarios ya no puede leer el fichero de la solución
+
+
+---
+
+# Vulnerabilidad
+
+Pese a que hemos conseguido el comportamiento esperado hemos creado una gran vulnerabilidad en el sistema.
+
+
+* El comando `solucion` ejecuta las soluciones de los alumnos
+* Al tener el bit SUID, ejecuta las soluciones de los alumnos con privilegios de `root`
+* Se puede abusar este comportamiento para ejecutar comandos con privilegios de `root` poniendo lo que queramos ejecutar con la sintaxis: 
+
+```
+1) Enunciado
+Solucion: ...
+```
 
 
 --- 
 
-# SUID en directorios
+# Vulnerabilidad
 
-En algunos sistemas Linux, el bit SUID en directorios funciona de manera similar al GUID en directorios.
+Por suerte, evitar esto es simple. 
 
-* 
+1. Creamos un usuario especial llamado `solve`
+2. El usuario `solve` es propietario de la solución correcta y solo el puede leerla
+3. El usuario `solve` es propietario del fichero del comando `solucion`
+4. Añadimos el bit SUID al comando `solucion`
+
+
+---
+
+```shell
+sergi@server~/ExamenISO_grep_sed$ ls -l /usr/bin/solucion
+-rws--x--x 1 solve solve 897048 abr 15 19:23 /usr/bin/solucion
+
+
+sergi@server~/ExamenISO_grep_sed$ ls -l /.secret/ExamenISO_grep_sed.txt
+-rw------- 1 solve solve 2468 abr 15 19:23 /.secret/ExamenISO_grep_sed.txt
+```
+
+
+* Ahora no hay peligro para el sistema dado que el usuario `solve` no tiene más privilegios a parte de leer el fichero
+
+* Este patrón es muy usado en diversos servicios Linux
 
 --- 
+
+# Peculiaridades
+
+* Linux ignora el SUID y el GUID en *scripts*
+* Si añadimos el SUID o el GUID a un fichero sin permiso de ejecución veremos el permiso con una **S** mayúscula
+
+
+---
+
+# SUID y GUID en directorios
+
+* Si un directorio tiene establecido el bit GUID, los ficheros y directorios creados heredan el mismo grupo que el directorio. 
+
+
+* En algunos sistemas Linux, el bit SUID en directorios funciona de manera similar. (En Ubuntu Server funciona así)
+
+---
 
 # Sticky bit 
 
 * Identificado por la letra **t**
 
 
+* Cuando se le asigna a un directorio, significa que los elementos que hay en ese directorio sólo pueden ser renombrados o borrados por:
+    - el propietario del elemento
+    - el propietario del directorio
+    - el usuario root
+    
+&rarr; Aunque el resto de usuarios tenga permisos de escritura y, por tanto, pueda modificar el contenido de esos elementos.
 
+
+**Ejemplo**
+```shell
+sergi@server~$ chmod +t directorio/
+```
+
+
+--- 
+
+# Bits especiales: modo absoluto
+
+Para establecer los bits especiales también podemos utilizar el modo octal/absoluto de `chmod`
+
+Se añade un digito octal a la izquierda codificado como:
+
+| SUID | SGID | STICKY |
+|------|------|--------|
+
+---
+
+**Ejemplo**
+Queremos configurar un directorio donde:
+* El propietario puede leer, escribir y ejecutar (`rwx` = 7)
+* Los miembros del grupo pueden leer y ejecutar (`r-x` = 5)
+* El resto de usuarios no pueden hacer nada (`---` = 0)
+* Los ficheros y directorios creados dentro de este heredan el grupo del directorio (`SGID`)
+
+
+| SUID | SGID | STICKY |
+|------|------|--------|  
+| 0    | 1    |  0     |
+
+
+```shell
+sergi@server~$ chmod 2750 directorio/
+```
 
 
 

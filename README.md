@@ -10,7 +10,7 @@
 [Cambiar el grupo de un fichero/directorio](#chgrp) <br>
 [Cambiar los permisos](#chmod) <br>
 [Cambiar el propietario de un fichero/directorio](#chown) <br>
-
+[Bits especiales](#bits-especiales) <b>
 ---
 
 ### useradd
@@ -155,3 +155,13 @@ chown [opciones] nuevo_propietario:nuevo_grupo archivo_o_directorio
 
 **Opciones útiles:**
 - `-R`: Aplica los cambios de propietario de manera recursiva en los subdirectorios.
+
+
+--- 
+### Bits especiales
+
+| Bit    | Chmod | Ficheros                                                  | Directorios                                                                                            |
+|--------|-------|-----------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| SUID   | u+s   | El fichero se ejecuta con los privilegios del propietario | Los elementos creados heredan el propietario del directorio                                            |
+| SGID   | g+s   | El fichero se ejecuta con los privilegios del grupo       | Los elementos creados heredan el grupo del directorio                                                  |
+| Sticky | +t    |                                                           | Solo el propietario de un elemento, del directorio o root pueden eliminar elementos de este directorio |
