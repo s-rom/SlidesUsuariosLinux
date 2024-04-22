@@ -1,0 +1,1 @@
+rm -r /home/ej1/esb
