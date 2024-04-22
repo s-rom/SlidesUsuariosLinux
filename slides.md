@@ -674,3 +674,155 @@ sergi@server~$ chmod 2750 directorio/
 
 
 
+# ACL
+## Access Control List
+
+---
+
+# ACL
+
+Permite definir permisos más granulares y concretos
+
+Podemos instalar esta herramienta mediante:
+
+```shell
+sergi@server~$ sudo apt install acl
+```
+
+--- 
+
+# Ver permisos
+
+```shell
+sergi@server/data$ getfacl .
+```
+
+```bash
+# file: .
+# owner: sergi
+# group: sergi
+user::rwx
+group::rwx
+other::rwx
+```
+
+---
+
+# Permisos explícitos
+
+Podemos añadir permisos concretos para un determinado grupo o usuario usando el modificador `-m`
+
+
+```shell
+sergi@server/data$ sudo setfacl -m "u:kal:rw" main.c
+```
+
+```shell
+sergi@server/data$ sudo  getfacl main.c
+```
+```bash
+# file: main.c
+# owner: sergi
+# group: desarrollo
+user::rw-
+user:kal:rw-
+group::rw-
+mask::rw-
+other::r--
+```
+
+
+--- 
+
+
+# Permisos por defecto
+
+* Los permisos por defecto se aplican a un **directorio**
+
+* Determinan los permisos que *heredarán* los ficheros y directorios creados a partir de este
+
+* Se establecen utilizando el modificador `-d`
+
+
+---
+
+
+# Ejemplo
+
+```shell
+sergi@server/data$ ls -l
+total 4
+drwxrwx---  2 sergi desarrollo 4096 abr 22 19:52 build
+-rw-rw-r--+ 1 sergi desarrollo    0 abr 22 19:33 main.c
+```
+
+Queremos añadir una excepción para que los miembros del grupo `management` puedan acceder, crear carpetas y ficheros en el directorio build.
+
+
+---
+
+Podríamos suponer que basta con ejecutar el siguiente comando
+
+```shell
+sergi@server/data$ setfacl -m "g:management:rwx" build
+```
+
+Si miramos los permisos, efectivamente es así:
+
+```shell
+sergi@server/data/build$ getfacl .
+```
+```bash
+# file: .
+# owner: sergi
+# group: desarrollo
+user::rwx
+group::rwx
+group:management:rwx
+mask::rwx
+other::---
+```
+
+
+---
+
+Ahora bien, si creamos una nueva carpeta dentro de `/data/build`, esta no ha heredado los permisos y por tanto el grupo `management` no puede acceder a la subcarpeta.
+
+```shell
+sergi@server/data/build/x86$ getfacl .
+```
+```bash
+# file: .
+# owner: sergi
+# group: sergi
+user::rwx
+group::rwx
+other::r-x
+```
+
+--- 
+
+Para asegurar la herencia, debemos usar el modificador `-d`
+
+
+```shell
+sergi@server/data/build$ sudo setfacl -dm "g:management:rwx" .
+sergi@server/data/build$ getfacl .
+# file: .
+# owner: sergi
+# group: desarrollo
+user::rwx
+group::rwx
+group:management:rwx
+mask::rwx
+other::---
+default:user::rwx
+default:group::rwx
+default:group:management:rwx
+default:mask::rwx
+default:other::---
+```
+
+
+
+

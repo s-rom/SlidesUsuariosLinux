@@ -57,3 +57,5 @@ Inicia sesión con un usuario de cada departamento y con el **administrador** y 
 
 Elimina toda la jerarquía de directorios, grupos y usuarios. 
 No puede quedar rastro de nada (eso supone eliminar los directorios personales de cada usuario entre otras cosas).
+
+
