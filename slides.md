@@ -2,7 +2,7 @@
 marp: true
 # @auto-scaling: true
 theme: default
-class: invert
+#class: invert
 ---
 
 # Linux: Usuarios y grupos
@@ -656,6 +656,7 @@ Se añade un digito octal a la izquierda codificado como:
 
 **Ejemplo**
 Queremos configurar un directorio donde:
+
 * El propietario puede leer, escribir y ejecutar (`rwx` = 7)
 * Los miembros del grupo pueden leer y ejecutar (`r-x` = 5)
 * El resto de usuarios no pueden hacer nada (`---` = 0)
@@ -673,9 +674,13 @@ sergi@server~$ chmod 2750 directorio/
 
 
 
+---
+
+
 
 # ACL
 ## Access Control List
+
 
 ---
 

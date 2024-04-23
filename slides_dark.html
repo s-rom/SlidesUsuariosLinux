@@ -659,17 +659,19 @@ Queremos configurar un directorio donde:</p>
 </table>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-shell"><span class="hljs-meta prompt_">sergi@server~$ </span><span class="language-bash"><span class="hljs-built_in">chmod</span> 2750 directorio/</span>
 </code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="48" data-class="invert" data-theme="default" lang="es-ES" class="invert" style="--class:invert;--theme:default;">
 <h1 id="acl">ACL</h1>
 <h2 id="access-control-list">Access Control List</h2>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="48" data-class="invert" data-theme="default" lang="es-ES" class="invert" style="--class:invert;--theme:default;">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="49" data-class="invert" data-theme="default" lang="es-ES" class="invert" style="--class:invert;--theme:default;">
 <h1 id="acl-1">ACL</h1>
 <p>Permite definir permisos más granulares y concretos</p>
 <p>Podemos instalar esta herramienta mediante:</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-shell"><span class="hljs-meta prompt_">sergi@server~$ </span><span class="language-bash">sudo apt install acl</span>
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="49" data-class="invert" data-theme="default" lang="es-ES" class="invert" style="--class:invert;--theme:default;">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="50" data-class="invert" data-theme="default" lang="es-ES" class="invert" style="--class:invert;--theme:default;">
 <h1 id="ver-permisos">Ver permisos</h1>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-shell"><span class="hljs-meta prompt_">sergi@server/data$ </span><span class="language-bash">getfacl .</span>
 </code></pre>
@@ -681,7 +683,7 @@ group::rwx
 other::rwx
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="50" data-class="invert" data-theme="default" lang="es-ES" class="invert" style="--class:invert;--theme:default;">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="51" data-class="invert" data-theme="default" lang="es-ES" class="invert" style="--class:invert;--theme:default;">
 <h1 id="permisos-expl%C3%ADcitos">Permisos explícitos</h1>
 <p>Podemos añadir permisos concretos para un determinado grupo o usuario usando el modificador <code>-m</code></p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-shell"><span class="hljs-meta prompt_">sergi@server/data$ </span><span class="language-bash">sudo setfacl -m <span class="hljs-string">&quot;u:kal:rw&quot;</span> main.c</span>
@@ -698,7 +700,7 @@ mask::rw-
 other::r--
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="51" data-marpit-fragments="3" data-class="invert" data-theme="default" lang="es-ES" class="invert" style="--class:invert;--theme:default;">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="52" data-marpit-fragments="3" data-class="invert" data-theme="default" lang="es-ES" class="invert" style="--class:invert;--theme:default;">
 <h1 id="permisos-por-defecto">Permisos por defecto</h1>
 <ul>
 <li data-marpit-fragment="1">
@@ -712,7 +714,7 @@ other::r--
 </li>
 </ul>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="52" data-class="invert" data-theme="default" lang="es-ES" class="invert" style="--class:invert;--theme:default;">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="53" data-class="invert" data-theme="default" lang="es-ES" class="invert" style="--class:invert;--theme:default;">
 <h1 id="ejemplo-1">Ejemplo</h1>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-shell"><span class="hljs-meta prompt_">sergi@server/data$ </span><span class="language-bash"><span class="hljs-built_in">ls</span> -l</span>
 total 4
@@ -721,7 +723,7 @@ drwxrwx---  2 sergi desarrollo 4096 abr 22 19:52 build
 </code></pre>
 <p>Queremos añadir una excepción para que los miembros del grupo <code>management</code> puedan acceder, crear carpetas y ficheros en el directorio build.</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="53" data-class="invert" data-theme="default" lang="es-ES" class="invert" style="--class:invert;--theme:default;">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="54" data-class="invert" data-theme="default" lang="es-ES" class="invert" style="--class:invert;--theme:default;">
 <p>Podríamos suponer que basta con ejecutar el siguiente comando</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-shell"><span class="hljs-meta prompt_">sergi@server/data$ </span><span class="language-bash">setfacl -m <span class="hljs-string">&quot;g:management:rwx&quot;</span> build</span>
 </code></pre>
@@ -738,7 +740,7 @@ mask::rwx
 other::---
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="54" data-class="invert" data-theme="default" lang="es-ES" class="invert" style="--class:invert;--theme:default;">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="55" data-class="invert" data-theme="default" lang="es-ES" class="invert" style="--class:invert;--theme:default;">
 <p>Ahora bien, si creamos una nueva carpeta dentro de <code>/data/build</code>, esta no ha heredado los permisos y por tanto el grupo <code>management</code> no puede acceder a la subcarpeta.</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-shell"><span class="hljs-meta prompt_">sergi@server/data/build/x86$ </span><span class="language-bash">getfacl .</span>
 </code></pre>
@@ -750,7 +752,7 @@ group::rwx
 other::r-x
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="55" data-class="invert" data-theme="default" lang="es-ES" class="invert" style="--class:invert;--theme:default;">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="56" data-class="invert" data-theme="default" lang="es-ES" class="invert" style="--class:invert;--theme:default;">
 <p>Para asegurar la herencia, debemos usar el modificador <code>-d</code></p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-shell"><span class="hljs-meta prompt_">sergi@server/data/build$ </span><span class="language-bash">sudo setfacl -dm <span class="hljs-string">&quot;g:management:rwx&quot;</span> .</span>
 <span class="hljs-meta prompt_">sergi@server/data/build$ </span><span class="language-bash">getfacl .</span>
