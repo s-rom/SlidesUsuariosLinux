@@ -1,6 +1,14 @@
 # Ejercicio: Bits especiales y ACL
 
 
+
+**Script de creación del usuario:**
+```
+https://raw.githubusercontent.com/s-rom/SlidesUsuariosLinux/master/Ejercicio_ACL_SETUID/create_user.sh
+```
+
+
+
 1.- El script `create_user.sh` creará un nuevo usuario llamado ej1 (contraseña = 123) en tu sistema. Debes cambiar sus permisos para convertirlo en un archivo ejecutable. El script dej1 eliminará al usuario llamado ej1. Debes cambiar sus permisos para convertirlo en un archivo ejecutable. Ambos deben ejecutarse usando el comando sudo. Comprueba si se ha creado un nuevo usuario llamado ej1 en tu sistema.
 
 2.- Utilizando el comando `su -`, conviértete en el usuario ej1. Crea una nueva carpeta llamada `esb` en su directorio personal.
@@ -9,9 +17,24 @@
 
 4.- Crea otra vez la carpeta llamada `esb` Utilizando el comando exit, conviértete otra vez en tu usuario "por defecto". Intenta eliminar **/home/ej1/esb**. ¿Puedes eliminar esa carpeta? ¿Por qué?
 
-5.- Estando como usuario ej1 y usando el programa curl, descarga el código del programa `delete_dir.c` en la carpeta home de ej1. Compila usando el comando `gcc delete_dir.c -o delete_dir`. Este programa únicamente trata de eliminar la carpeta **/home/ej1/esb** (siempre que tengas los permisos adecuados). Como usuario ej1, comprueba que puedes eliminar **/home/ej1/esb** usando `delete_dir`. Crea otra vez la carpeta `esb`
+
+5.- Estando como usuario ej1 y usando el programa curl, descarga el código del programa `delete_dir.c` en la carpeta personal de ej1. Compila usando el comando `gcc delete_dir.c -o delete_dir`. Este programa únicamente trata de eliminar la carpeta **/home/ej1/esb** (siempre que tengas los permisos adecuados). Como usuario ej1, comprueba que puedes eliminar **/home/ej1/esb** usando `delete_dir`. Crea otra vez la carpeta `esb`
+
+
+```shell
+ej1@server~$ curl  https://raw.githubusercontent.com/s-rom/SlidesUsuariosLinux/master/Ejercicio_ACL_SETUID/delete_dir.c > delete_dir.c
+
+ej1@server~$ gcc delete_dir.c -o delete_dir
+```
+
 
 6.- Descarga también el script `script_delete_dir` y comprueba que tiene la misma funcionalidad que `delete_dir`
+
+```shell
+ej1@server~$ curl  https://raw.githubusercontent.com/s-rom/SlidesUsuariosLinux/master/Ejercicio_ACL_SETUID/delete_dir.sh > script_delete_dir
+```
+
+
 
 7.- Instala los comandos `delete_dir` y `script_delete_dir` copiando los ficheros correspondientes a **/usr/bin/**. ¿Te deja hacerlo? ¿Por qué?
 
